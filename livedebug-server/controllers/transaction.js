@@ -8,7 +8,7 @@ class TransactionController {
       to: req.transferToId
     })
     .then(success => {
-      Transaction.find({
+      return Transaction.findOne({
         _id: success._id
       })
       .populate({

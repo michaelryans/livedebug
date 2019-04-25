@@ -82,8 +82,11 @@ describe('Transactions', function() {
   })
 
   describe('POST /transactions', function() {
+    it('should return status code 201 and create transactions', function(done) {
 
-    it.only('should return status code 201 and create transactions', function(done) {
+    //   console.log(awtianAccount);
+    // console.log(wikaAccount);
+    // console.log('test============================================');
       chai
        .request(app)
        .post('/transactions')

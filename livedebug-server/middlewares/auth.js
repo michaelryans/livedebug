@@ -5,11 +5,14 @@ const Transaction = require('../models/transaction');
 
 module.exports = {
   authentication: function(req, res, next) {
-    let token = req.header.token;
+    let token = req.headers.token;
 
-    if (token) {
+    // console.log('masuk auth')
+    if (!token) {
+      // console.log('masuk 1')
       res.status(401).json({ error: 'You must login to access this endpoint' });
     } else {
+      // console.log('masuk else middle authent')
       let decoded = jwt.verify(token);
       User
        .findOne({
@@ -30,19 +33,26 @@ module.exports = {
   },
   authorization: function(req, res, next) {
     let accountNumber = null;
+    // console.log(req.params)
+    // console.log('---------------')
+    // console.log(req.body)
 
     if (req.params.accountNumber) {
       accountNumber = req.params.accountNumber
     } else {
       accountNumber = req.body.accountNumber
     }
-
+    // console.log(accountNumber, 'accnum--------')
     Account.findOne({
       accountNumber: accountNumber
     })
      .then(account => {
+      //  console.log(account.userId)
+      //  console.log('123123123123')
+      //  console.log(req.user._id)
        if (account.userId.toString() === req.user._id.toString()) {
          req.transferFromId = account._id;
+        //  console.log('masuk seneee')
          next();
        } else {
          res.status(403).json({ err: 'Forbidden' });
@@ -53,10 +63,15 @@ module.exports = {
      })
   },
   authForTransfer: function(req, res, next) {
+    // console.log('masuk ke authfor transfer')
+    console.log(req.body.accountNumberTo)
+    console.log('------req.body')
     Account.findOne({
       accountNumber: req.body.accountNumberTo
     })
     .then(account => {
+      console.log('account auth - for transfer')
+      console.log(account)
       if(account) {
         req.transferToId = account._id;
         next();

@@ -38,6 +38,7 @@ export default {
 
   methods: {
     showDetail () {
+      // console.log(this.id)
       this.$emit('detail', this.id)
     }
   }

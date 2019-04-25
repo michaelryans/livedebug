@@ -23,7 +23,7 @@ const transactionSchema = new Schema({
 transactionSchema.pre('save', function(next) {
   Account.findOne({
     _id: this.from,
-    balance: { $lte: Number(this.amount)  }
+    balance: { $gte: Number(this.amount)  }
   })
   .then(updated => {
     if (updated) {

@@ -46,6 +46,8 @@ export default {
 
   methods: {
     fetchProject (id) {
+      // console.log("-----", id)
+      console.log('------- sampai methods fetch component')
       return this.$store.dispatch('fetchProject', id)
     },
 
@@ -57,7 +59,7 @@ export default {
 
   computed: {
     user () {
-      return this.store.state.projects.user
+      return this.$store.state.projects.user
     },
 
     projects () {
@@ -70,13 +72,18 @@ export default {
       this.isLoading = true
       this.fetchProject(newVal.params.behanceId).then(
         _ => (this.isLoading = false)
+        
       )
+      // this.isLoading = false
     }
   },
 
   mounted () {
+    // this.fetchProject(this.$route.params.behanceId).then(
+    //   _ => {(this.isLoading = false)}
+    // )
     this.fetchProject(this.$route.params.behanceId).then(
-      _ => (this.isLoading = false)
+      _ => {(this.isLoading = false)}
     )
   }
 }

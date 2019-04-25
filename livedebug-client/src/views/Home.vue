@@ -21,13 +21,14 @@
       </div>
     </div>
 
-    <routing-view @myFavorite="myFavorite"/>
+    <router-view :myFavorite="myFavorite"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import User from '@/components/User.vue'
+import UserGallery from '@/views/UserGallery.vue'
 
 export default {
   name: 'home',
@@ -39,7 +40,8 @@ export default {
   },
 
   components: {
-    User
+    User,
+    UserGallery
   },
 
   methods: {

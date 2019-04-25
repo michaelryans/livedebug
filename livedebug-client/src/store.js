@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from './helpers/axios'
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -19,7 +20,7 @@ export default new Vuex.Store({
     },
 
     setProjects (state, payload) {
-      state.projects = payload
+      state.projects.projects = payload
     },
 
     setCollections (state, payload) {
@@ -38,7 +39,9 @@ export default new Vuex.Store({
     },
 
     fetchProject (context, id) {
+      console.log('masuk fetch action project')
       return axios.get(`/projects/${id}`).then(({ data }) => {
+        console.log(data, '---------- fetch project action')
         context.commit('setProjects', { data })
       })
     },

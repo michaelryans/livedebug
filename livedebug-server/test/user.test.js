@@ -29,6 +29,8 @@ describe('Users', function() {
        .post(`/register`)
        .send(user)
        .end(function(err, res) {
+        // console.log(res.body)
+        // console.log('di test nih')
          expect(err).to.be.null;
 
          expect(res).to.have.status(201);
@@ -45,7 +47,7 @@ describe('Users', function() {
          expect(res.body.verificationCode.length).to.equal(6);
 
          verificationCode = res.body.verificationCode;
-
+        
          done();
        })
     })
